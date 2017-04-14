@@ -1,0 +1,48 @@
+
+Regel "LAMP_AAN" in "HelloWorldDemo" luidt:
+	Zet de lamp aan
+	indien aan de volgende voorwaarden wordt voldaan:
+	- de automaat heeft rubriek moment bevat "morgen|avond"
+			en rubriek temperatuur is hoger dan 16
+			en rubriek aanwezig is gelijk aan ja
+	.
+
+Testcase "LAMP_AAN_TC" in "HelloWorldDemo" omvat de volgende testgevallen:
+
+	- "testcase_001" met als invoer:
+		een automaat
+			waarbij moment wordt gesteld op "avond"
+			waarbij temperatuur wordt gesteld op 20
+			waarbij aanwezig wordt gesteld op ja
+		waardoor de regel zal vuren
+		
+	- "testcase_002" met als invoer:
+		een automaat
+			waarbij aanwezig wordt gesteld op nee
+		waardoor de regel niet zal vuren
+	.
+
+
+Regel "LAMP_UIT" in "HelloWorldDemo" luidt:
+	Zet de lamp uit
+	indien aan de volgende voorwaarden wordt voldaan:
+	- de automaat heeft rubriek moment bevat "middag|nacht"
+			of rubriek temperatuur is lager dan 17
+			of rubriek aanwezig is gelijk aan nee
+	.
+
+Testcase "LAMP_UIT_TC" in "HelloWorldDemo" omvat de volgende testgevallen:
+
+	- "testcase_001" met als invoer:
+		een automaat
+			waarbij aanwezig wordt gesteld op nee
+		waardoor de regel zal vuren
+		
+	- "testcase_002" met als invoer:
+		een automaat
+			waarbij moment wordt gesteld op "avond"
+			waarbij temperatuur wordt gesteld op 22
+			waarbij aanwezig wordt gesteld op ja
+		waardoor de regel niet zal vuren
+	.
+

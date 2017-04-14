@@ -1,0 +1,15 @@
+package com.fokkenrood.HelloWorldDemo
+
+import com.fokkenrood.drools.Automaat;
+
+rule "LAMP_UIT"
+  when
+    $automaat : Automaat(
+      moment matches "(middag|nacht)" ||
+      temperatuur < 17 ||
+      aanwezig == false
+      )
+  then
+	$automaat.setAutomaatID("LAMP_UIT");
+	$automaat.setStatus("uit");
+end
