@@ -10,8 +10,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
 
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
+import com.fokkenrood.drools.Automaat;
+
 public class MyKieService {
-	static String request = "";
+	static String request	= "";
+	static String response	= "";
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Hello Drools KIE world...");
@@ -48,9 +55,11 @@ public class MyKieService {
 	}	// end readRequest
 	
 	private static void writeResponse(BufferedWriter writer) throws IOException {
+		response = "";
 		if (request.startsWith("JSON:")) {
-			writer.write("<h2>de ontvangen json string was helemaal OK!</h2>\n");
-			writer.write("\n");
+			roepBelisServiceAan();
+			writer.write(response);
+			writer.write("\n\n");
 			return;
 		}	// end if
 		
@@ -63,5 +72,32 @@ public class MyKieService {
 		writer.write("<p align=\"center\">@ " + Calendar.getInstance().getTime() + "</p>\n");
 		writer.write("\n");
 	}	// end writeResponse
+	
+	
+	private static void roepBelisServiceAan() {
+		//	setup a KIE-service and a KIE-session:	
+		KieServices ks = KieServices.Factory.get();
+		KieContainer kc = ks.getKieClasspathContainer();
+		KieSession ksession = kc.newKieSession("sessionHelloWorldDemo");
+		
+//		//	voeg feit toe aan de sessie:
+		String json[] = request.split("\"");
+		Automaat automaat = new Automaat();
+		automaat.setDagdeel(json[5]);
+		automaat.setTemperatuur(Integer.parseInt(json[9]));
+		automaat.setAanwezig(json[13].equals("ja") ? true : false);
+		ksession.insert(automaat);
+		
+		//	execute rule engine:
+		ksession.fireAllRules();
+
+		//	formeer JSON response string:
+		response += "{\"automaat\":{";
+		response += "\"regel\":\"" + automaat.getRegel() + "\"";
+		response += ",\"status\":\"" + automaat.getStatus() + "\"";
+		response += "}}";
+
+		ksession.dispose();
+	}	// end roepBelisServiceAan
 
 }	// end class

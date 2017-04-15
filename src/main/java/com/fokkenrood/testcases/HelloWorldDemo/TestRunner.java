@@ -10,7 +10,7 @@ public class TestRunner {
 		for (Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());
 		}
-		System.out.println(result.wasSuccessful());
+		System.out.println(result.wasSuccessful() ? "Alles is OK." : "Er zijn fouten ontdekt!");
 	}	// end main
 
 }	// end class

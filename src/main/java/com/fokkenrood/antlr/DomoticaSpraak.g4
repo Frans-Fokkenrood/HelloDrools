@@ -12,13 +12,13 @@ regel
 	(	RREGEL rg=TEKST IN rs=TEKST LUIDT DUBBELE_PUNT
 		ZZET DE LAMP ( s=AAN | s=UIT )
 		INDIEN AAN DE VOLGENDE VOORWAARDEN WORDT VOLDAAN DUBBELE_PUNT
-		(	object[$rg.text]
+		(	object[$rg.text, $s.text]
 		)+
 		PUNT
 	)
 	;
 	
-object[String rg]
+object[String rg, String s]
 	:
 	(	STREEPJE DE obj=AUTOMAAT HEEFT RUBRIEK
 		(	voorwaarde[rg]
@@ -39,13 +39,13 @@ voorwaarde[String rg]
 testcase
 	:
 	(	TTESTCASE tc=TEKST IN rs=TEKST OMVAT DE VOLGENDE TESTGEVALLEN DUBBELE_PUNT
-		(	testgeval
+		(	testgeval[$tc.text]
 		)+
 		PUNT
 	)
 	;
 
-testgeval
+testgeval[String tc]
 	:
 	(	STREEPJE tg=TEKST MET ALS INVOER DUBBELE_PUNT
 		(	invoer

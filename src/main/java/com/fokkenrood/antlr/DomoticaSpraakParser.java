@@ -295,7 +295,7 @@ public class DomoticaSpraakParser extends Parser {
 				{
 				{
 				setState(49);
-				object((((RegelContext)_localctx).rg!=null?((RegelContext)_localctx).rg.getText():null));
+				object((((RegelContext)_localctx).rg!=null?((RegelContext)_localctx).rg.getText():null), (((RegelContext)_localctx).s!=null?((RegelContext)_localctx).s.getText():null));
 				}
 				}
 				setState(52); 
@@ -320,6 +320,7 @@ public class DomoticaSpraakParser extends Parser {
 
 	public static class ObjectContext extends ParserRuleContext {
 		public String rg;
+		public String s;
 		public Token obj;
 		public TerminalNode STREEPJE() { return getToken(DomoticaSpraakParser.STREEPJE, 0); }
 		public TerminalNode DE() { return getToken(DomoticaSpraakParser.DE, 0); }
@@ -333,9 +334,10 @@ public class DomoticaSpraakParser extends Parser {
 			return getRuleContext(VoorwaardeContext.class,i);
 		}
 		public ObjectContext(ParserRuleContext parent, int invokingState) { super(parent, invokingState); }
-		public ObjectContext(ParserRuleContext parent, int invokingState, String rg) {
+		public ObjectContext(ParserRuleContext parent, int invokingState, String rg, String s) {
 			super(parent, invokingState);
 			this.rg = rg;
+			this.s = s;
 		}
 		@Override public int getRuleIndex() { return RULE_object; }
 		@Override
@@ -348,8 +350,8 @@ public class DomoticaSpraakParser extends Parser {
 		}
 	}
 
-	public final ObjectContext object(String rg) throws RecognitionException {
-		ObjectContext _localctx = new ObjectContext(_ctx, getState(), rg);
+	public final ObjectContext object(String rg,String s) throws RecognitionException {
+		ObjectContext _localctx = new ObjectContext(_ctx, getState(), rg, s);
 		enterRule(_localctx, 4, RULE_object);
 		int _la;
 		try {
@@ -566,7 +568,7 @@ public class DomoticaSpraakParser extends Parser {
 				{
 				{
 				setState(91);
-				testgeval();
+				testgeval((((TestcaseContext)_localctx).tc!=null?((TestcaseContext)_localctx).tc.getText():null));
 				}
 				}
 				setState(94); 
@@ -590,6 +592,7 @@ public class DomoticaSpraakParser extends Parser {
 	}
 
 	public static class TestgevalContext extends ParserRuleContext {
+		public String tc;
 		public Token tg;
 		public Token not;
 		public TerminalNode STREEPJE() { return getToken(DomoticaSpraakParser.STREEPJE, 0); }
@@ -610,8 +613,10 @@ public class DomoticaSpraakParser extends Parser {
 			return getRuleContext(InvoerContext.class,i);
 		}
 		public TerminalNode NIET() { return getToken(DomoticaSpraakParser.NIET, 0); }
-		public TestgevalContext(ParserRuleContext parent, int invokingState) {
+		public TestgevalContext(ParserRuleContext parent, int invokingState) { super(parent, invokingState); }
+		public TestgevalContext(ParserRuleContext parent, int invokingState, String tc) {
 			super(parent, invokingState);
+			this.tc = tc;
 		}
 		@Override public int getRuleIndex() { return RULE_testgeval; }
 		@Override
@@ -624,8 +629,8 @@ public class DomoticaSpraakParser extends Parser {
 		}
 	}
 
-	public final TestgevalContext testgeval() throws RecognitionException {
-		TestgevalContext _localctx = new TestgevalContext(_ctx, getState());
+	public final TestgevalContext testgeval(String tc) throws RecognitionException {
+		TestgevalContext _localctx = new TestgevalContext(_ctx, getState(), tc);
 		enterRule(_localctx, 10, RULE_testgeval);
 		int _la;
 		try {

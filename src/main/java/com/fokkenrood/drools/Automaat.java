@@ -1,24 +1,17 @@
 package com.fokkenrood.drools;
 
 public class Automaat {
-	String	automaatID					= null;
-	String	moment						= null;
+	String	dagdeel						= null;
 	int		temperatuur					= -1;
 	boolean	aanwezig					= true;
+	String	regel						= null;
 	String	status						= null;
 	
-	public String getAutomaatID() {
-		return automaatID;
+	public String getDagdeel() {
+		return dagdeel;
 	}
-	public void setAutomaatID(String automaatID) {
-		this.automaatID = automaatID;
-	}
-	
-	public String getMoment() {
-		return moment;
-	}
-	public void setMoment(String moment) {
-		this.moment = moment;
+	public void setDagdeel(String dagdeel) {
+		this.dagdeel = dagdeel;
 	}
 	
 	public int getTemperatuur() {
@@ -33,6 +26,13 @@ public class Automaat {
 	}
 	public void setAanwezig(boolean aanwezig) {
 		this.aanwezig = aanwezig;
+	}
+	
+	public String getRegel() {
+		return regel;
+	}
+	public void setRegel(String regel) {
+		this.regel = regel;
 	}
 	
 	public String getStatus() {

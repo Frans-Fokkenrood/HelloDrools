@@ -77,8 +77,6 @@ public class DomoticaDroolsListener extends DomoticaSpraakBaseListener {
 
 	@Override
 	public void exitRegel(RegelContext ctx) {
-		int p = drlThen.indexOf("@@@");
-		if (p > 0) { drlThen.replace(p, p+3, ctx.s.getText()); }
 		drlThen.append("end\n");
 		try {
 			writer = new BufferedWriter(new FileWriter(new File(
@@ -108,12 +106,14 @@ public class DomoticaDroolsListener extends DomoticaSpraakBaseListener {
 		drlWhen.append("\n      )\n");
 		drlThen.append("\t$");
 		drlThen.append(ctx.obj.getText());
-		drlThen.append(".setAutomaatID(\"");
+		drlThen.append(".setRegel(\"");
 		drlThen.append(ctx.rg);
 		drlThen.append("\");\n");
 		drlThen.append("\t$");
 		drlThen.append(ctx.obj.getText());
-		drlThen.append(".setStatus(\"@@@\");\n");
+		drlThen.append(".setStatus(\"");
+		drlThen.append(ctx.s);
+		drlThen.append("\");\n");
 	}	// end exitObject
 
 
@@ -164,7 +164,6 @@ public class DomoticaDroolsListener extends DomoticaSpraakBaseListener {
 		javaCase.append("public class ");
 		javaCase.append(ctx.tc.getText());
 		javaCase.append(" {\n");
-		javaCase.append("\tprivate int\t\t\t\t\t\tcount\t\t= -1;\n");
 		javaCase.append("\tprivate Calendar\t\t\t\tTODAY\t\t= Calendar.getInstance();\n");
 		javaCase.append("\tprivate KieServices\t\t\t\tks\t\t\t= null;\n");
 		javaCase.append("\tprivate KieContainer\t\t\tkc\t\t\t= null;\n");
@@ -214,13 +213,16 @@ public class DomoticaDroolsListener extends DomoticaSpraakBaseListener {
 
 	@Override
 	public void exitTestgeval(TestgevalContext ctx) {
-		javaCase.append("\t\tcount = ksession.fireAllRules();\n");
+		javaCase.append("\t\tksession.fireAllRules();\n");
 		javaCase.append("\t\tksession.dispose();\n");
 		javaCase.append("\t\tassertTrue(\"");
-		javaCase.append(ctx.not == null ? "Geen enkele" : "Een");
-		javaCase.append(" regel heeft gevuurd\", count ");
-		javaCase.append(ctx.not == null ? ">" : "==");
-		javaCase.append(" 0);\n");
+		javaCase.append("De regel heeft ");
+		javaCase.append(ctx.not == null ? "NIET " : "");
+		javaCase.append("gevuurd\", ");
+		javaCase.append(ctx.not == null ? "" : "!");
+		javaCase.append("automaat.getRegel().equals(\"");
+		javaCase.append(ctx.tc.split("_TC")[0]);
+		javaCase.append("\"));\n");
 		javaCase.append("\t}\t // end ");
 		javaCase.append(ctx.tg.getText());
 		javaCase.append("\n\n");

@@ -5,11 +5,11 @@ import com.fokkenrood.drools.Automaat;
 rule "LAMP_AAN"
   when
     $automaat : Automaat(
-      moment matches "(morgen|avond)",
+      dagdeel matches "(morgen|avond)",
       temperatuur > 16,
       aanwezig == true
       )
   then
-	$automaat.setAutomaatID("LAMP_AAN");
+	$automaat.setRegel("LAMP_AAN");
 	$automaat.setStatus("aan");
 end

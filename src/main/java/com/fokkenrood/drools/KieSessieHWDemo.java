@@ -16,15 +16,15 @@ public class KieSessieHWDemo {
 		
 		//	voeg feit toe aan de sessie:
 		Automaat automaat = new Automaat();
-		automaat.setMoment("morgen");
+		automaat.setDagdeel("morgen");
 		automaat.setTemperatuur(22);
 		automaat.setAanwezig(true);
 		ksession.insert(automaat);
 		
 		//	execute rule engine:
 		ksession.fireAllRules();
-		if (automaat.getAutomaatID() != null) {
-			System.out.println("- De regel '" + automaat.getAutomaatID() + "' heeft gevuurd; "
+		if (automaat.getRegel() != null) {
+			System.out.println("- De regel '" + automaat.getRegel() + "' heeft gevuurd; "
 					+ "de lamp staat '" + automaat.getStatus().toUpperCase() + "'...");
 		}	// end if
 		ksession.dispose();

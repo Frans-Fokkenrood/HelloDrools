@@ -14,7 +14,6 @@ import org.kie.api.runtime.KieSession;
 import com.fokkenrood.drools.Automaat;
 
 public class LAMP_AAN_TC {
-	private int						count		= -1;
 	private Calendar				TODAY		= Calendar.getInstance();
 	private KieServices				ks			= null;
 	private KieContainer			kc			= null;
@@ -30,14 +29,14 @@ public class LAMP_AAN_TC {
 	@Test
 	public void testcase_001() throws ParseException {
 		Automaat automaat = new Automaat();
-		automaat.setMoment("avond");
+		automaat.setDagdeel("avond");
 		automaat.setTemperatuur(20);
 		automaat.setAanwezig(true);
 		ksession.insert(automaat);
 
-		count = ksession.fireAllRules();
+		ksession.fireAllRules();
 		ksession.dispose();
-		assertTrue("Geen enkele regel heeft gevuurd", count > 0);
+		assertTrue("De regel heeft NIET gevuurd", automaat.getRegel().equals("LAMP_AAN"));
 	}	 // end testcase_001
 
 	@Test
@@ -46,9 +45,9 @@ public class LAMP_AAN_TC {
 		automaat.setAanwezig(false);
 		ksession.insert(automaat);
 
-		count = ksession.fireAllRules();
+		ksession.fireAllRules();
 		ksession.dispose();
-		assertTrue("Een regel heeft gevuurd", count == 0);
+		assertTrue("De regel heeft gevuurd", !automaat.getRegel().equals("LAMP_AAN"));
 	}	 // end testcase_002
 
 }	// end class
